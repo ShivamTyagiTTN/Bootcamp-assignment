@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>com.mymaven</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <repositories>
+<!--Adding a repository -->
+        <repository>
+            <id>junit</id>
+            <url>https://mvnrepository.com/artifact/junit/junit/4.13.2</url>
+
+        </repository>
+
+    </repositories>
+
+    <dependencies>
+<!--Using repository dependency-->
+
+<!--Q.4 Differentiate between the different dependency scopes: compile, runtime,
+ test, provided using different dependencies being defined in your pom.xml.-->
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+            <!-- This scope is used to indicate that dependency isn't required at standard runtime of the application,
+            but is used only for test purposes. -->
+        </dependency>
+
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+            <scope>compile</scope>
+            <!--Dependencies with this scope are available on the classpath of the project in all build tasks and
+            they're propagated to the dependent projects. -->
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+            <!-- This scope is used to mark dependencies that should be provided
+            at runtime by JDK or a container, hence the name.-->
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>6.0.6</version>
+            <scope>runtime</scope>
+            <!--The dependencies with this scope are required at runtime,
+            but they're not needed for compilation of the project code -->
+        </dependency>
+
+
+
+</dependencies>
+
+    <properties>
+        <maven.compiler.source>15</maven.compiler.source>
+        <maven.compiler.target>15</maven.compiler.target>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- Build an executable JAR -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>app</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
