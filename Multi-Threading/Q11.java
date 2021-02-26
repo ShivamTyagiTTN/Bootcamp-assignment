@@ -6,37 +6,37 @@ import java.util.Random;
 
 public class Q11 {
 
-    private final Object list1 = new Object();
-    private final Object list2 = new Object();
+    private final Object obj1 = new Object();
+    private final Object obj2 = new Object();
 
     private final Random random = new Random();
 
-    private final ArrayList<Integer> l1 = new ArrayList<>();
-    private final ArrayList<Integer> l2 = new ArrayList<>();
+    private final ArrayList<Integer> integerList1 = new ArrayList<>();
+    private final ArrayList<Integer> integerList2 = new ArrayList<>();
 
     public void stageOne(){
 
-        synchronized(list1){
+        synchronized(obj1){
             for (int i = 0; i < 1000; i++) {
                 try {
                     Thread.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                l1.add(random.nextInt());
+                integerList1.add(random.nextInt());
             }
         }
     }
 
     public void stageTwo(){
-        synchronized(list2){
+        synchronized(obj2){
             for (int i = 0; i < 1000; i++) {
                 try {
                     Thread.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                l2.add(random.nextInt());
+                integerList2.add(random.nextInt());
             }
         }
     }
@@ -48,25 +48,25 @@ public class Q11 {
 
     public static void main(String[] args) throws InterruptedException {
 
-        Q11 obj = new Q11();
+        Q11 q11obj = new Q11();
 
-        Thread t1 = new Thread(obj::process);
-        Thread t2 = new Thread(obj::process);
+        Thread thread1 = new Thread(q11obj::process);
+        Thread thread2 = new Thread(q11obj::process);
 
         long start = System.currentTimeMillis();
-        t1.start();
-        t2.start();
+        thread1.start();
+        thread2.start();
 
-        t1.join();
-        t2.join();
+        thread1.join();
+        thread2.join();
 
         System.out.println("Time taken: " + (System.currentTimeMillis()-start));
-        System.out.println("List1 size: "+obj.l1.size() + " List2 size: " + obj.l2.size());
+        System.out.println("List1 size: "+q11obj.integerList1.size() + "  List2 size: " + q11obj.integerList2.size());
     }
 }
 /*
 
 Output:
     Time taken: 3102
-    List1 size: 2000 List2 size: 2000
+    List1 size: 2000  List2 size: 2000
 */
