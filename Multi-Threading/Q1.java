@@ -3,11 +3,12 @@
 
 import java.util.stream.IntStream;
 
-class multiThread extends Thread{
+class MultiThread extends Thread{
 
     public void run(){
 
-        IntStream.rangeClosed(1,10).forEach(x -> { System.out.println("Thread: " +x );
+        IntStream.rangeClosed(1,10).forEach(num -> { 
+            System.out.println("Thread: " +num );
             try {
                 multiThread.sleep(100);
             } catch (InterruptedException e) {
@@ -20,8 +21,8 @@ class multiThread extends Thread{
 class Runner implements Runnable {
 
     public void run() {
-        IntStream.rangeClosed(10, 20).forEach(x -> {
-            System.out.println("Runnable: "+x);
+        IntStream.rangeClosed(10, 20).forEach(num -> {
+            System.out.println("Runnable: "+num);
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
@@ -38,12 +39,12 @@ public class Q1 {
     public static void main(String[] args) {
 
         //Using thread class
-        multiThread t1 = new multiThread();
-        t1.start();
+        MultiThread multiThread = new MultiThread();
+        multiThread.start();
 
         //Using Runnable interface
-        Thread r1 = new Thread(new Runner());
-        r1.start();
+        Thread runner = new Thread(new Runner());
+        runner.start();
 
 
     }
