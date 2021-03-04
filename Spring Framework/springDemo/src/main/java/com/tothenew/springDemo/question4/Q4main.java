@@ -1,22 +1,22 @@
 /*
-* 	Q.3 Use @Component and @Autowired annotations to in Loosely Coupled code for dependency management
+* 	Q4. Get a Spring Bean from application context and display its properties.
+* 	(setter injection using resourses/beans.xml)
 */
 
 package com.tothenew.springDemo.question4;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-@SpringBootApplication
+
 public class Q4main {
 
 	public static void main(String[] args) {
 
-		ApplicationContext applicationContext = SpringApplication.run(Q4main.class, args);
-		Artist artist = applicationContext.getBean(Artist.class);
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+		Book book = (Book) applicationContext.getBean("bookobj");
+		System.out.println(book);
 
-		System.out.println(artist);
 	}
-
 }
+
