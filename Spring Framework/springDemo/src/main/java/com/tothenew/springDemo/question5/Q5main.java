@@ -1,8 +1,5 @@
 /*
-* 	Q.3 Use @Component and @Autowired annotations to in Loosely Coupled code for dependency management
-*/
-/*
-    (5) Demonstrate how you will resolve ambiguity while autowiring bean
+    Q.5 Demonstrate how you will resolve ambiguity while autowiring bean
 */
 package com.tothenew.springDemo.question5;
 
