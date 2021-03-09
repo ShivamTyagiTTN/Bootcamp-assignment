@@ -1,5 +1,5 @@
 package com.example.restfulwebservices2.user;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.hateoas.EntityModel;
@@ -25,13 +25,14 @@ public class UserController {
 
 // Q.4 Create GET Method to fetch the list of users in XML format.
     @GetMapping(value = "/users", produces = "application/xml")
+    @ApiOperation(value = "GET users", notes = "Get all user details")
     List<User> retrieveAllUsers() {
         return userService.getAllUsers();
     }
 //Q.11 Configure hateoas with your spring boot application.
 // Create an api which returns User Details along with url to show all topics.
     @GetMapping("/users/{id}")
-    @ApiModelProperty(notes = "User details")
+    @ApiOperation(value = "User details", notes = "Get user details by id")
     EntityModel<User> getOne(@PathVariable int id) {
 
         User user = userService.getUserById(id);
@@ -46,7 +47,7 @@ public class UserController {
     }
 //   Q.3 Create POST Method to create user details which can accept XML for user creation.
     @PostMapping(value = "/users", consumes = "application/xml")
-    @ApiModelProperty(notes = "Create user")
+    @ApiOperation(value = "create user", notes = "create user using xml format")
     ResponseEntity<Object> saveUser(@RequestBody User user) {
 
         userService.addUser(user);
@@ -57,7 +58,7 @@ public class UserController {
     }
 
     @DeleteMapping("users/{id}")
-    @ApiModelProperty(notes = "Delete Employee")
+    @ApiOperation(value = "Delete user", notes = "Delete user using id path variable")
     User deleteUserById(@PathVariable int id) {
         User user = userService.deleteUser(id);
 
