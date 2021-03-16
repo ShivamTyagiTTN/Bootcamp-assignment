@@ -1,0 +1,51 @@
+Q.9 Which method on the session object can be used to remove an object from the cache?
+
+Ans: 
+To avoid executing same read operation multiple times, hibernate uses first level cache by default.
+
+To remove an object from session cache, we can use 'evict()' method.
+
+eg:
+
+@Test
+@Transactional
+public void testCaching(){
+  Session session = entityManager.unwrap(Session.class)
+  Product product = repository.findOne(1);    //Querry with be executes and stored in cache.
+  
+  repository.findOne(1); // Querry will not execute because object already exists in cache.
+  
+  session.evict(product); // Objected will be removed from cache
+  
+  repository.findOne(1); // Querry will be executed as it doesn't exist in cache.
+}
+
+
+Q.10 What does @transactional annotation do?
+
+Ans: A transaction simply represents a unit of work. In such case, if one step fails, the whole transaction fails. 
+(which is termed as atomicity) in ACID properties
+
+Using @Transactional is a way to let Spring start and commit/rollback transactions for you. 
+So you shouldn't start and commit transactions yourself.
+
+First it opens the transaction, perform the operation and close the transaction.
+If an operation is failed it will rollback, if an operation is a success it will be committed.
+
+eg:
+
+@Transactional
+public void transfer(int amount){
+  Account account1 = new Account();
+  Account account2 = new Account();
+
+  account1.setBalance(account1.getBalance - amount);
+  if(true){
+    throw new RuntimeException();
+  }
+  account2.setBalance(account2.getBalance + amount);
+}
+
+This transaction will be rollbacked because we are using @Transactional annotation here, 
+if there was no @Transational annotation, this transaction would be partially executed 
+i.e amount would be deducted from 1 account but not credited to other, which does not satisfy ACID properties.
